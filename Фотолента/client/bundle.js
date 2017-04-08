@@ -13288,24 +13288,24 @@ exports.insert = function (css) {
 
 },{}],6:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-570fb6c8] {\n  nmargin : 10px;\n}\n")
+var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-7c248d8e] {\n  nmargin : 10px;\n}\n")
 "use strict";
 
 module.exports = {};
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<h1 _v-570fb6c8=\"\"> Hello, {{ x }}! </h1>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"form-group\" _v-7c248d8e=\"\">\n    <input type=\"text\" class=\"form-control\" _v-7c248d8e=\"\">\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n.container[_v-570fb6c8] {\n  nmargin : 10px;\n}\n"] = false
+    __vueify_insert__.cache["\n.container[_v-7c248d8e] {\n  nmargin : 10px;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-570fb6c8", module.exports)
+    hotAPI.createRecord("_v-7c248d8e", module.exports)
   } else {
-    hotAPI.update("_v-570fb6c8", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-7c248d8e", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":4,"vue-hot-reload-api":2,"vueify/lib/insert-css":5}],7:[function(require,module,exports){
