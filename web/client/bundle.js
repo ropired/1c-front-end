@@ -1,47 +1,58 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-125e1248] {\n  width: 50%;\n}\n\nform[_v-125e1248] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  justifi-content: space-between;\n}\n")
+var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-a08f25bc] {\n    width: 50%;\n}\n\nform[_v-a08f25bc] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    margin-bottom: 50px;\n}\n\n.photo[_v-a08f25bc] {\n    margin-bottom: 50px;\n}\n\n.photo img[_v-a08f25bc] {\n    width: 100%;\n    height: 100%;\n}\n")
 'use strict';
 
 module.exports = {
-  methods: {
-    upload: function upload(event) {
-      event.preventDefault();
-      var form = event.target;
-      var formData = new FormData(form);
-      this.$http.post('/upload', formData, { bearer: true }).then(function (response) {
-        console.log(response);
-      });
+    data: function data() {
+        return { photos: [] };
+    },
+    ready: function ready() {
+        var self = this;
+        self.$http.get('/feed', { bearer: true }).then(function (response) {
+            response.json().then(function (photos) {
+                self.photos = photos;
+            });
+        });
+    },
+    methods: {
+        upload: function upload(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            this.$http.post('/upload', formData, { bearer: true }).then(function (response) {
+                location.reload();
+            });
+        }
     }
-  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\" _v-125e1248=\"\">\n  <form v-on:submit=\"upload\" _v-125e1248=\"\">\n    <input type=\"file\" accept=\"image/*\" name=\"picture\" _v-125e1248=\"\">\n    <button type=\"submit\" _v-125e1248=\"\">Загрузка</button>\n  </form>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\" _v-a08f25bc=\"\">\n    <div _v-a08f25bc=\"\">\n        <form v-on:submit=\"upload\" _v-a08f25bc=\"\">\n            <input type=\"file\" accept=\"image/*\" name=\"picture\" _v-a08f25bc=\"\">\n            <button type=\"submit\" _v-a08f25bc=\"\">Загрузить!</button>\n        </form>\n    </div>\n    <div v-for=\"photo in photos\" class=\"photo panel panel-default\" _v-a08f25bc=\"\">\n        <div class=\"panel-heading\" _v-a08f25bc=\"\">\n            {{ photo.user }}\n        </div>\n        <div class=\"panel-body\" _v-a08f25bc=\"\">\n            <img v-bind:src=\"photo.image\" _v-a08f25bc=\"\">\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n.container[_v-125e1248] {\n  width: 50%;\n}\n\nform[_v-125e1248] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  justifi-content: space-between;\n}\n"] = false
+    __vueify_insert__.cache["\n.container[_v-a08f25bc] {\n    width: 50%;\n}\n\nform[_v-a08f25bc] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    margin-bottom: 50px;\n}\n\n.photo[_v-a08f25bc] {\n    margin-bottom: 50px;\n}\n\n.photo img[_v-a08f25bc] {\n    width: 100%;\n    height: 100%;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-125e1248", module.exports)
+    hotAPI.createRecord("_v-a08f25bc", module.exports)
   } else {
-    hotAPI.update("_v-125e1248", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-a08f25bc", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":13,"vue-hot-reload-api":9,"vueify/lib/insert-css":14}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 module.exports = {
-  ready: function ready() {
-    if (this.$auth.isLoggedIn()) {
-      this.$router.go("/feed");
-    } else {
-      this.$router.go("/login");
+    ready: function ready() {
+        if (this.$auth.isLoggedIn()) {
+            this.$router.go('/feed');
+        } else {
+            this.$router.go('/login');
+        }
     }
-  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -49,47 +60,47 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-17c67984", module.exports)
+    hotAPI.createRecord("_v-7bcdcbfe", module.exports)
   } else {
-    hotAPI.update("_v-17c67984", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-7bcdcbfe", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":13,"vue-hot-reload-api":9}],3:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-3d23c6ca] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-3d23c6ca] {\n    margin: 10px 0;\n}\n")
+var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-45756f15] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-45756f15] {\n    margin: 10px 0;\n}\n")
 'use strict';
 
 module.exports = {
-  data: function data() {
-    return {
-      username: '',
-      password: ''
-    };
-  },
-  methods: {
-    login: function login() {
-      this.$auth.logIn(this.username, this.password).then(function (response) {
-        console.log(response);
-      }).catch(function (response) {
-        console.log(response);
-      });
+    data: function data() {
+        return {
+            username: '',
+            password: ''
+        };
+    },
+    methods: {
+        login: function login() {
+            this.$auth.logIn(this.username, this.password).then(function (response) {
+                this.$router.go('/feed');
+            }).catch(function (response) {
+                console.log(response);
+            });
+        }
     }
-  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"form-group container\" _v-3d23c6ca=\"\">\n    <input type=\"text\" class=\"form-control\" placeholder=\"Логин\" v-model=\"username\" _v-3d23c6ca=\"\">\n    <input type=\"password\" class=\"form-control\" placeholder=\"Пароль\" v-model=\"password\" _v-3d23c6ca=\"\">\n        <button type=\"button\" class=\"btn btn-primary btn-block\" v-on:click=\"login\" _v-3d23c6ca=\"\">\n        login\n    </button>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"form-group container\" _v-45756f15=\"\">\n    <input type=\"text\" class=\"form-control\" placeholder=\"Логин\" v-model=\"username\" _v-45756f15=\"\">\n    <input type=\"password\" class=\"form-control\" placeholder=\"Пароль\" v-model=\"password\" _v-45756f15=\"\">\n    <button type=\"button\" class=\"btn btn-primary btn-block\" v-on:click=\"login\" _v-45756f15=\"\">\n        Login\n    </button>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n.container[_v-3d23c6ca] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-3d23c6ca] {\n    margin: 10px 0;\n}\n"] = false
+    __vueify_insert__.cache["\n.container[_v-45756f15] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-45756f15] {\n    margin: 10px 0;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-3d23c6ca", module.exports)
+    hotAPI.createRecord("_v-45756f15", module.exports)
   } else {
-    hotAPI.update("_v-3d23c6ca", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-45756f15", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":13,"vue-hot-reload-api":9,"vueify/lib/insert-css":14}],4:[function(require,module,exports){
@@ -105,12 +116,9 @@ Vue.use(VueRouter);
 
 // Подключаем компоненту-страницу регистрации.
 var Register = require('./register.vue');
-
-var login = require('./login.vue');
-
-var feed = require('./feed.vue');
-
-var index = require('./index.vue');
+var Login = require('./login.vue');
+var Feed = require('./feed.vue');
+var Index = require('./index.vue');
 
 // Создаём новый объект маршрутизации.
 var router = new VueRouter();
@@ -118,9 +126,9 @@ var router = new VueRouter();
 // Задаём соответствия между путями и страницами.
 router.map({
     '/register': { component: Register },
-    '/login': { component: login },
-    '/feed': { component: feed },
-    '/': { component: index }
+    '/login': { component: Login },
+    '/feed': { component: Feed },
+    '/': { component: Index }
 });
 
 // Указываем, что тег router-view находится
@@ -15322,7 +15330,7 @@ exports.insert = function (css) {
 
 },{}],15:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-4b23f261] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-4b23f261] {\n    margin: 10px 0;\n}\n")
+var __vueify_style__ = __vueify_insert__.insert("\n.container[_v-898a54b2] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-898a54b2] {\n    margin: 10px 0;\n}\n")
 'use strict';
 
 module.exports = {
@@ -15341,26 +15349,26 @@ module.exports = {
                 var promise = this.$auth.register(this.username, this.password);
                 var self = this;
                 promise.then(function () {
-                    self.router$.go("/login");
+                    self.$router.go('/login');
                 });
             }
         }
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"form-group container\" _v-4b23f261=\"\">\n    <input type=\"text\" class=\"form-control\" placeholder=\"Логин\" v-model=\"username\" _v-4b23f261=\"\">\n    <input type=\"password\" class=\"form-control\" placeholder=\"Пароль\" v-model=\"password\" _v-4b23f261=\"\">\n    <input type=\"password\" class=\"form-control\" placeholder=\"Повтор пароля\" v-model=\"repeat\" _v-4b23f261=\"\">\n    <button type=\"button\" class=\"btn btn-danger btn-block\" v-on:click=\"register\" _v-4b23f261=\"\">\n        Register\n    </button>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"form-group container\" _v-898a54b2=\"\">\n    <input type=\"text\" class=\"form-control\" placeholder=\"Логин\" v-model=\"username\" _v-898a54b2=\"\">\n    <input type=\"password\" class=\"form-control\" placeholder=\"Пароль\" v-model=\"password\" _v-898a54b2=\"\">\n    <input type=\"password\" class=\"form-control\" placeholder=\"Повтор пароля\" v-model=\"repeat\" _v-898a54b2=\"\">\n    <button type=\"button\" class=\"btn btn-danger btn-block\" v-on:click=\"register\" _v-898a54b2=\"\">\n        Register\n    </button>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n.container[_v-4b23f261] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-4b23f261] {\n    margin: 10px 0;\n}\n"] = false
+    __vueify_insert__.cache["\n.container[_v-898a54b2] {\n    margin: 10px auto;\n    width: 50%;\n}\n\n.form-control[_v-898a54b2] {\n    margin: 10px 0;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4b23f261", module.exports)
+    hotAPI.createRecord("_v-898a54b2", module.exports)
   } else {
-    hotAPI.update("_v-4b23f261", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-898a54b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":13,"vue-hot-reload-api":9,"vueify/lib/insert-css":14}],16:[function(require,module,exports){

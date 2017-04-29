@@ -40,7 +40,7 @@
                     var promise = this.$auth.register(this.username, this.password);
                     var self = this;
                     promise.then(function() {
-                        self.router$.go("/login");
+                        self.$router.go('/login');
                     });
                 }
             }

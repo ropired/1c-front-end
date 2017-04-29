@@ -10,12 +10,9 @@ Vue.use(VueRouter);
 
 // Подключаем компоненту-страницу регистрации.
 var Register = require('./register.vue');
-
-var login = require('./login.vue');
-
-var feed = require('./feed.vue');
-
-var index = require('./index.vue');
+var Login = require('./login.vue');
+var Feed = require('./feed.vue');
+var Index = require('./index.vue');
 
 // Создаём новый объект маршрутизации.
 var router = new VueRouter();
@@ -23,9 +20,9 @@ var router = new VueRouter();
 // Задаём соответствия между путями и страницами.
 router.map({
     '/register': { component: Register },
-    '/login': { component: login },
-    '/feed': { component: feed },
-    '/': { component: index }
+    '/login': { component: Login },
+    '/feed': { component: Feed },
+    '/': { component: Index }
 });
 
 // Указываем, что тег router-view находится
